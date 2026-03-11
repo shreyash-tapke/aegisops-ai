@@ -45,3 +45,54 @@ AegisOps AI uses GitHub Actions to enforce quality, security, and reliability ac
 - They run automatically on **push** and **pull requests**, unless marked `workflow_dispatch` (manual trigger).
 - Artifacts (coverage, SBOM, backups, metrics) can be downloaded from the **Actions run page**.
 
+
+---
+
+## Ì∫Ä Quick Start
+
+Follow these steps to set up AegisOps AI locally:
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/shreyash-tapke/aegisops-ai.git
+cd aegisops-ai
+eof
+
+---
+
+## Ì¥ù Contributing Guide
+
+We welcome contributions to **AegisOps AI**! Please follow these guidelines:
+
+### 1. Branching Strategy
+- Use feature branches: `feature/<name>`  
+- Use bugfix branches: `bugfix/<issue>`  
+- Never commit directly to `master`.
+
+### 2. Commit Style
+- Use clear, conventional commit messages:
+  - `feat: add new module`
+  - `fix: resolve import error`
+  - `test: expand coverage for DB handler`
+- Keep commits small and focused.
+
+### 3. Pull Requests
+- Ensure all tests pass locally (`pytest`).
+- Verify coverage (`pytest --cov=. --cov-report=html`).
+- Run security checks (`bandit -r .`).
+- Generate SBOM (`cyclonedx-py -o sbom.xml`).
+- Link related issues in the PR description.
+
+### 4. Code Style
+- Run `flake8` for linting.
+- Format with `black` before committing.
+- Keep functions modular and transparent.
+
+### 5. Review Process
+- At least one reviewer approval required.
+- CI/CD workflows must be green before merge.
+- Backups are automatically created; rollback is available if needed.
+
+---
+
+‚úÖ Following these rules ensures smooth collaboration and keeps AegisOps AI privacy‚Äësafe, modular, and reliable.
