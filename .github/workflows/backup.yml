@@ -1,0 +1,26 @@
+name: Backup
+
+on:
+  workflow_dispatch:   # manual trigger
+  schedule:
+    - cron: '0 0 * * *'   # daily at midnight UTC
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create backup archive
+        run: |
+          mkdir -p backups
+          tar -czf backups/project-backup-$(date +%F).tar.gz .
+
+      - name: Upload backup artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-backup
+          path: backups/
