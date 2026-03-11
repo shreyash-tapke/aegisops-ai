@@ -1,0 +1,28 @@
+name: SBOM Generation
+
+on:
+  push:
+    branches: [ "**" ]
+  pull_request:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  sbom:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install CycloneDX
+        run: |
+          pip install cyclonedx-bom
+      - name: Generate SBOM
+        run: cyclonedx-py -o sbom.xml
+      - name: Upload SBOM artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: sbom.xml
