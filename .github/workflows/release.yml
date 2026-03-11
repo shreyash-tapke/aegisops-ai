@@ -30,3 +30,28 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: dist/*
+
+# Hugging Face Deployment Step
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Hugging Face CLI
+        run: |
+          pip install huggingface_hub
+
+      - name: Upload to Hugging Face Hub
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          huggingface-cli upload ./dist/*.whl --repo shreyash-tapke/aegisops-ai --token $HF_TOKEN
+          huggingface-cli upload ./model-card.md --repo shreyash-tapke/aegisops-ai --token $HF_TOKEN
+          huggingface-cli upload ./sbom.xml --repo shreyash-tapke/aegisops-ai --token $HF_TOKEN
