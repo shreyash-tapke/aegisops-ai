@@ -1,0 +1,22 @@
+name: Rollback
+
+on:
+  workflow_dispatch:   # manual trigger
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  rollback:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download latest backup
+        uses: actions/download-artifact@v4
+        with:
+          name: project-backup
+
+      - name: Restore backup
+        run: |
+          tar -xzf project-backup/*.tar.gz -C .
